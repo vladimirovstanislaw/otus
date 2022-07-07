@@ -1,0 +1,7 @@
+/buildSrc/build/
+/buildSrc/.gradle/
+/hw01-gradle/build/
+/build/
+/.gradle/
+/.gradle/7.4/
+/.idea/
