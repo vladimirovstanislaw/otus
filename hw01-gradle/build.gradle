@@ -1,21 +1,18 @@
 plugins {
     id 'java'
     id 'com.github.johnrengelman.shadow'
+    id 'java-library'
 }
 
 group 'ru.otus'
 version '1.0'
 
-repositories {
-    mavenLocal()
-    mavenCentral()
-}
-
 dependencies {
-    implementation("com.google.guava:guava")
+    api 'com.google.guava:guava:31.1-jre' // случай 1
+    //implementation 'com.google.guava:guava' //случай 2
 }
 
-task testHola { print 'Hola from hw01-gradle' }
+task testHola { print 'Hello from hw01-gradle' }
 
 shadowJar {
     archiveBaseName.set("fatJarHw01-gradle")

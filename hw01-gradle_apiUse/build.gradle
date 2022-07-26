@@ -1,0 +1,16 @@
+plugins {
+    id 'java'
+    id 'java-library'
+    //id 'homework:hw01-gradle_apiUse'
+}
+
+
+
+group 'ru.otus'
+version '3'
+
+
+
+dependencies {
+    implementation project(':hw01-gradle')
+}

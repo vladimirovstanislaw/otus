@@ -1,2 +1,5 @@
 rootProject.name = 'homework'
 include 'hw01-gradle'
+include 'hw01-gradle_apiUse'
+include 'L03-qa'
+
