@@ -17,8 +17,13 @@ allprojects {
         mavenLocal()
         mavenCentral()
     }
-    apply plugin: "io.spring.dependency-management"
+    apply plugin: "io.spring.dependency-management"//Плагин, который дает в gradle подтягивать зависимости
     dependencyManagement {
+        imports {
+            mavenBom "org.springframework.boot:spring-boot-dependencies:2.7.0"
+            mavenBom "org.testcontainers:testcontainers-bom:1.17.1"
+            mavenBom "com.google.protobuf:protobuf-bom:3.21.1"
+        }
         dependencies {
             dependency "com.google.guava:guava:${Versions.guavaLastVersion}"
         }
