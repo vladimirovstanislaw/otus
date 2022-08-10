@@ -7,8 +7,6 @@ public class Customer implements Comparable {
     private String name;
     private long scores;
 
-    //todo: 1. в этом классе надо исправить ошибки
-
     public Customer(long id, String name, long scores) {
         this.id = id;
         this.name = name;
@@ -47,10 +45,7 @@ public class Customer implements Comparable {
 
     @Override
     public int hashCode() {
-        int result = (int) (id ^ (id >>> 32));
-        //result = 31 * result + (name != null ? name.hashCode() : 0);
-        //result = 31 * result + (int) (scores ^ (scores >>> 32));
-        return result;
+        return (int) (id ^ (id >>> 32));
     }
 
     @Override
@@ -61,32 +56,7 @@ public class Customer implements Comparable {
         Customer customer = (Customer) o;
 
         if (id != customer.id) return false;
-
-        //if (scores != customer.scores) return false;
-        //return Objects.equals(name, customer.name);
         return true;
-    }
-
-    public static void main(String[] args) {
-        Customer customer = new Customer(1, null, 3);
-        Customer customer2 = new Customer(1, null, 3);
-//        System.out.println("customer.name == null");
-//        System.out.println(customer.getName() == null);
-//        System.out.println("customer.name.equals(customer2.name)");
-//        String customerName1 = customer.getName();
-//        String customerName2 = customer2.getName();
-//        System.out.println("customerName1");
-//        System.out.println(customerName1);
-//        System.out.println("customerName2");
-//        System.out.println(customerName2);
-//        System.out.println("customerName1.equals(customerName2)");
-//        System.out.println(Objects.equals(customerName1, customerName2));
-//        //System.out.println(customerName1.equals(customerName2));
-//        //System.out.println(customer.getName().equals(customer2.getName()));
-//        System.out.println("customer.name.equals(customer2.name)");
-//
-
-
     }
 
     @Override

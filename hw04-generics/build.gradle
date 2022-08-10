@@ -4,7 +4,7 @@ plugins {
 
 group 'ru.otus'
 version '1'
-sourceCompatibility = '17'
+
 repositories {
     mavenCentral()
 }

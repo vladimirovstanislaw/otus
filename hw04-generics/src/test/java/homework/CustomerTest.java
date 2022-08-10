@@ -1,6 +1,5 @@
 package homework;
 
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -86,7 +85,6 @@ class CustomerTest {
         //when
         Map.Entry<Customer, String> biggestScore = customerService.getNext(customer1);
         //then
-        System.out.println();
         assertThat(biggestScore.getKey()).isEqualTo(customer3);//trouble
 
         //when
@@ -115,7 +113,6 @@ class CustomerTest {
 
         //then
         assertThat(customerService.getSmallest().getKey().getName()).isEqualTo(customer2.getName());
-        System.out.println("");
     }
 
     @Test
