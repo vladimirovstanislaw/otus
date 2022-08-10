@@ -21,6 +21,7 @@ public class WildcardPECS {
         System.out.println("============= List<Cat>  =============");
         List<Cat> catList = new ArrayList<>();
         catList.add(new Cat());
+        // catList.add(new HomeCat("sad"));// super - т.е. мы можем добавлять в коллекции параметризованные <Cat> наследников Cat и поэтому
         printProducer(catList);
         printConsumer(catList);
 
@@ -54,7 +55,7 @@ public class WildcardPECS {
         catList.add(new Cat());
         catList.add(new HomeCat("noName"));//Мы можем вызвать этот метод на animalList и на catList, но не можем на homeCatList
         //Т.к. мы можем добавить кошку и её наследников HomeCat/WildCat, но при этом не можем добавить Animal(?).
-        //Из-за <? super Cat> - нам дает возможность модификации - мы знаем что пришедший сюда список гарантированно поддерживает кошку
+        //из-за <? super Cat> - нам дает возможность модификации - мы знаем что пришедший сюда список гарантированно поддерживает кошку
         //  и соотвественно мы можем свободно добавлять её наследников не ломая при этом корректное поведение списка.
         catList.add(new WildCat("noName"));
 

@@ -5,7 +5,7 @@ public class Animal {
     public String toString() {
         return "Animal";
     }
-    public String getMik(){
-        return "milk";
+    public String getMilk(){
+        return "Animal milk";
     }
 }

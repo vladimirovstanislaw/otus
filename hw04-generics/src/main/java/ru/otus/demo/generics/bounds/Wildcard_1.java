@@ -13,19 +13,21 @@ public class Wildcard_1 {
     public static void main(String[] args) {
         List<Animal> animalList = new ArrayList<>();
         animalList.add(new Animal());
+        animalList.add(new HomeCat("Animal - new milk"));
 
         //  print(animalList);
-        //  printWild(animalList);
+        printWild(animalList);
 
         List<Cat> catList = new ArrayList<>();
         catList.add(new Cat());
         catList.add(new HomeCat("Барсик"));
         catList.add(new WildCat("Багира"));
+        // 9 catList.add(new Animal());
 
         List<HomeCat> homeCatList = new ArrayList<>();
-        printWild(homeCatList);
+        //printWild(homeCatList);
         //print(catList);
-        printWild(catList);
+        //printWild(catList);
     }
 
     private static void print(List<Animal> animalList) {
@@ -44,7 +46,7 @@ public class Wildcard_1 {
         //                                                   нам элементы, она их предоставляет/производит.
         //
         for (Animal item : animalList) {
-            System.out.println(item.getMik());
+            System.out.println(item.getMilk());
         }
     }
 }
