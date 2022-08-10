@@ -13,14 +13,21 @@ public class CustomerService {
     public Map.Entry<Customer, String> getSmallest() {
         //Возможно, чтобы реализовать этот метод, потребуется посмотреть как Map.Entry сделан в jdk
         //rebuildMap();
-        Set<Customer> set = treeMap.keySet();
-        return new java.util.AbstractMap.SimpleEntry<Customer, String>((Customer) set.toArray()[0], treeMap.get(set.toArray()[0]));
+        Object[] keys = treeMap.keySet().toArray();
+        return Map.Entry.copyOf(new AbstractMap.SimpleEntry<Customer, String>(new Customer(((Customer) keys[0]).getId(), ((Customer) keys[0]).getName(), ((Customer) keys[0]).getScores()), new String(treeMap.get(keys[0]))));
     }
 
     public Map.Entry<Customer, String> getNext(Customer customer) {
 //        rebuildMap();
         if (treeMap.get(customer) == null) {
-            return treeMap.ceilingEntry(customer);
+            Map.Entry<Customer, String> ceilingEntry = treeMap.ceilingEntry(customer);
+            if (ceilingEntry != null) {
+                return Map.Entry.copyOf(new AbstractMap.SimpleEntry<Customer, String>(new Customer(treeMap.ceilingEntry(customer).getKey().getId(), treeMap.ceilingEntry(customer).getKey().getName(), treeMap.ceilingEntry(customer).getKey().getScores()), treeMap.ceilingEntry(customer).getValue()));
+            } else {
+                return null;
+            }
+
+            //return Map.Entry.copyOf(new AbstractMap.SimpleEntry<Customer, String>(new Customer(((Customer) keys[0]).getId(), ((Customer) keys[0]).getName(), ((Customer) keys[0]).getScores()), new String(treeMap.get(keys[0]))));
         } else {
             int indexOfCustomer = -1;
 
@@ -38,7 +45,8 @@ public class CustomerService {
                 System.out.println(keys[i]);
                 System.out.println(values[i]);
             }
-            return new java.util.AbstractMap.SimpleEntry<Customer, String>((Customer) keys[indexOfCustomer + 1], (String) values[indexOfCustomer + 1]);
+            return Map.Entry.copyOf(new AbstractMap.SimpleEntry<Customer, String>(new Customer(((Customer) keys[indexOfCustomer + 1]).getId(), ((Customer) keys[indexOfCustomer + 1]).getName(), ((Customer) keys[indexOfCustomer + 1]).getScores()), (String) values[indexOfCustomer + 1]));
+            //return Map.Entry.copyOf(new AbstractMap.SimpleEntry<Customer, String>(new Customer(((Customer) keys[0]).getId(), ((Customer) keys[0]).getName(), ((Customer) keys[0]).getScores()), new String(treeMap.get(keys[0]))));
 //            int indexOfMiddle = 0;
 //            List<Object> set = List.of(treeMap.keySet().toArray());
 //
@@ -60,7 +68,7 @@ public class CustomerService {
     }
 
     public void add(Customer customer, String data) {
-        treeMap.put(customer, data);
+        treeMap.put(new Customer(customer.getId(), customer.getName(), customer.getScores()), data);
     }
 
     private synchronized void rebuildMap() {
