@@ -26,7 +26,7 @@ class MessageBuilderImplTest {
     void buildMessage() throws IllegalAccessException {
         Mockito.when(templateProvider.getMessageTemplate(any())).thenReturn(DEFAULT_TEMPLATE);
         String expectedMessage = String.format(DEFAULT_TEMPLATE, DEFAULT_MESSAGE_TEXT, DEFAULT_SIGNATURE);
-        var actualMessage = messageBuilder.buildMessage(DEFAULT_TEMPLATE_NAME, DEFAULT_MESSAGE_TEXT, DEFAULT_SIGNATURE);
+        String actualMessage = messageBuilder.buildMessage(DEFAULT_TEMPLATE_NAME, DEFAULT_MESSAGE_TEXT, DEFAULT_SIGNATURE);
         Assertions.assertEquals(expectedMessage, actualMessage);
     }
 
