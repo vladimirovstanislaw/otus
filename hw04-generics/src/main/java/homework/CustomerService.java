@@ -1,47 +1,43 @@
 package homework;
 
 
-import java.util.AbstractMap;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.*;
 
 public class CustomerService {
-    private TreeMap<Customer, String> treeMap = new TreeMap<>();
+    //    private TreeMap<Customer, String> treeMap = new TreeMap<>(new Comparator<Customer>() {
+//        @Override
+//        public int compare(Customer o1, Customer o2) {
+//
+//            long compareLong = o1.getScores() - o2.getScores();
+//            if (compareLong > 0) {
+//                return 1;
+//            } else if (compareLong == 0) {
+//                return 0;
+//            } else {
+//                return -1;
+//            }
+//        }
+//    });
+    private final NavigableMap<Customer, String> treeMap = new TreeMap<>(Comparator.comparingLong(Customer::getScores));
 
 
     public Map.Entry<Customer, String> getSmallest() {
-        Object[] keys = treeMap.keySet().toArray();
-        return new AbstractMap.SimpleEntry<>(new Customer(((Customer) keys[0]).getId(), ((Customer) keys[0]).getName(), ((Customer) keys[0]).getScores()), treeMap.get(keys[0]));
+        Map.Entry<Customer, String> smallestEntry = treeMap.firstEntry();
+        return new AbstractMap.SimpleEntry<>(new Customer(smallestEntry.getKey().getId(), smallestEntry.getKey().getName(), smallestEntry.getKey().getScores()), smallestEntry.getValue());
     }
 
     public Map.Entry<Customer, String> getNext(Customer customer) {
         if (treeMap.get(customer) == null) {
             Map.Entry<Customer, String> ceilingEntry = treeMap.ceilingEntry(customer);
             if (ceilingEntry != null) {
-                return new AbstractMap.SimpleEntry<>(new Customer(treeMap.ceilingEntry(customer).getKey().getId(), treeMap.ceilingEntry(customer).getKey().getName(), treeMap.ceilingEntry(customer).getKey().getScores()), treeMap.ceilingEntry(customer).getValue());
+                return new AbstractMap.SimpleEntry<>(new Customer(ceilingEntry.getKey().getId(), ceilingEntry.getKey().getName(), ceilingEntry.getKey().getScores()), ceilingEntry.getValue());
             } else {
                 return null;
             }
 
         } else {
-            int indexOfCustomer = -1;
-
-            Object[] keys = treeMap.keySet().toArray();
-            Object[] values = treeMap.values().toArray();
-            Map.Entry<Customer, String> ceilingEntry = treeMap.ceilingEntry(customer);
-            Customer ceilingKey = treeMap.ceilingKey(customer);
-            for (int i = 0; i < keys.length; i++) {
-                if (customer.equals(keys[i])) {
-                    indexOfCustomer = i;
-                }
-            }
-
-            for (int i = 0; i < keys.length; i++) {
-                System.out.println(keys[i]);
-                System.out.println(values[i]);
-            }
-            return new AbstractMap.SimpleEntry<>(new Customer(((Customer) keys[indexOfCustomer + 1]).getId(), ((Customer) keys[indexOfCustomer + 1]).getName(), ((Customer) keys[indexOfCustomer + 1]).getScores()), (String) values[indexOfCustomer + 1]);
-
+            Map.Entry<Customer, String> higherEntry = treeMap.higherEntry(customer);
+            return new AbstractMap.SimpleEntry<>(new Customer(higherEntry.getKey().getId(), higherEntry.getKey().getName(), higherEntry.getKey().getScores()), higherEntry.getValue());
         }
     }
 

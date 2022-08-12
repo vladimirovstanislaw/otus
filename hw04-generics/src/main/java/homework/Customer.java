@@ -1,8 +1,6 @@
 package homework;
 
-import java.util.Objects;
-
-public class Customer implements Comparable {
+public class Customer {
     private final long id;
     private String name;
     private long scores;
@@ -57,11 +55,5 @@ public class Customer implements Comparable {
 
         if (id != customer.id) return false;
         return true;
-    }
-
-    @Override
-    public int compareTo(Object o) {
-        Customer customer = (Customer) o;
-        return (int) (this.getScores() - customer.getScores());
     }
 }
