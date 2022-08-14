@@ -26,6 +26,8 @@ allprojects {
         }
         dependencies {
             dependency "com.google.guava:guava:${Versions.guavaLastVersion}"
+            dependency "org.openjdk.jmh:jmh-core:${Versions.jmh}"
+            dependency "org.openjdk.jmh:jmh-generator-annprocess:${Versions.jmh}"
         }
     }
 
