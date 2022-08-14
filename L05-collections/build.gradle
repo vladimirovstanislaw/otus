@@ -1,0 +1,21 @@
+plugins {
+    id 'java'
+}
+
+group 'ru.otus'
+version '1'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation 'org.openjdk.jmh:jmh-core'
+    testAnnotationProcessor 'org.openjdk.jmh:jmh-generator-annprocess'
+    testImplementation 'org.junit.jupiter:junit-jupiter-engine'
+    testImplementation 'org.assertj:assertj-core'
+}
+
+test {
+    useJUnitPlatform()
+}
