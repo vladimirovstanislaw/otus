@@ -37,12 +37,12 @@ public class JMHArray {
 
     @Benchmark
     public long myArrayInitTest() {
-        for (var idx = 0; idx < ARRAY_SIZE_MAX; idx++) {
+        for (int idx = 0; idx < ARRAY_SIZE_MAX; idx++) {
             myArr.setValue(idx, idx);
         }
 
         long summ = 0;
-        for (var idx = 0; idx < ARRAY_SIZE_MAX; idx++) {
+        for (int idx = 0; idx < ARRAY_SIZE_MAX; idx++) {
             summ += myArr.getValue(idx);
         }
         return summ;
@@ -50,12 +50,12 @@ public class JMHArray {
 
     @Benchmark
     public long ArrayListTest() {
-        for (var idx = 0; idx < ARRAY_SIZE_MAX; idx++) {
+        for (int idx = 0; idx < ARRAY_SIZE_MAX; idx++) {
             arrayList.add(idx, idx);
         }
 
         long summ = 0;
-        for (var idx = 0; idx < ARRAY_SIZE_MAX; idx++) {
+        for (int idx = 0; idx < ARRAY_SIZE_MAX; idx++) {
             summ += arrayList.get(idx);
         }
         return summ;
