@@ -4,4 +4,5 @@ include 'hw01-gradle_apiUse'
 include 'L03-qa'
 include 'hw04-generics'
 include 'L05-collections'
+include 'hw06-annotations'
 
