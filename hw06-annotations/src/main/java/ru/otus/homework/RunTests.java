@@ -75,6 +75,7 @@ public class RunTests {
         for (Method method : methods) {
             //System.out.println("-----------------------------------Метод:" + method.toString());
             if (method.isAnnotationPresent((Class<? extends Annotation>) Class.forName(annotationClazz.getCanonicalName()))) {
+                method.setAccessible(true);
                 listMethods.add(method);
             }
         }
