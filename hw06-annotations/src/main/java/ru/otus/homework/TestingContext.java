@@ -78,9 +78,7 @@ public class TestingContext {
 
     private List<Method> getMethodsWithAnnotation(Method[] methods, Class<? extends Annotation> annotationClazz) throws ClassNotFoundException {
         List<Method> listMethods = new ArrayList<>();
-        //System.out.println("-----------достаем методы с аннотацией @Test");
         for (Method method : methods) {
-            //System.out.println("-----------------------------------Метод:" + method.toString());
             if (method.isAnnotationPresent((Class<? extends Annotation>) Class.forName(annotationClazz.getCanonicalName()))) {
                 method.setAccessible(true);
                 listMethods.add(method);
