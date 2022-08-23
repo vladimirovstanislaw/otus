@@ -5,4 +5,7 @@ include 'L03-qa'
 include 'hw04-generics'
 include 'L05-collections'
 include 'hw06-annotations'
+include 'hw08-gc'
+include 'hw08-gc:homework8'
+findProject(':hw08-gc:homework8')?.name = 'homework8'
 
