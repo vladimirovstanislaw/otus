@@ -1,5 +1,7 @@
 package ru.otus.reflection;
 
+import java.util.Objects;
+
 public class DemoClass {
 
     public int publicFieldForDemo;
@@ -33,4 +35,18 @@ public class DemoClass {
                 ", value='" + valuePrivate + '\'' +
                 '}';
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        DemoClass demoClass = (DemoClass) o;
+        return publicFieldForDemo == demoClass.publicFieldForDemo && Objects.equals(valuePrivate, demoClass.valuePrivate);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(publicFieldForDemo, valuePrivate);
+    }
+
 }

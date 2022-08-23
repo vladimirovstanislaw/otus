@@ -23,7 +23,4 @@ public class Testable {
         System.out.println("After test");
     }
 
-
-    //happy path, without exception, all works fine
-
 }
