@@ -5,6 +5,8 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class ReflectionGetInfo {
     public static void main(String[] args) throws NoSuchMethodException {
@@ -35,7 +37,6 @@ public class ReflectionGetInfo {
         Method annotatedMethod = clazz.getMethod("toString");
         Annotation[] annotations = annotatedMethod.getDeclaredAnnotations();
         System.out.println(Arrays.toString(annotations));
-
     }
 
 }
