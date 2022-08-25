@@ -1,19 +1,17 @@
-package ru.otus.homework;
+package ru.otus.homework.utils;
 
 import java.lang.reflect.Method;
-import java.util.concurrent.atomic.AtomicInteger;
+import java.util.Arrays;
+import java.util.List;
 
 public class TestRunner {
     public TestRunner() {
     }
 
     public void runTests(String className) throws ReflectiveOperationException {
-        AtomicInteger successfulTests = new AtomicInteger(0);
-        AtomicInteger failedTests = new AtomicInteger(0);
-        AtomicInteger successfulAfter = new AtomicInteger(0);
-        AtomicInteger failedAfter = new AtomicInteger(0);
-        AtomicInteger successfulBefore = new AtomicInteger(0);
-        AtomicInteger failedBefore = new AtomicInteger(0);
+        int failedTests = 0;
+        int failedAfter = 0;
+        int failedBefore = 0;
 
         Class<?> clazz = Class.forName(className);
         System.out.println("Testing class '" + clazz.getSimpleName() + "'");
@@ -28,47 +26,48 @@ public class TestRunner {
             var object = testingContext.instantiate();
 
             //выполняем все @Before
-            for (Method beforeMethod : testingContext.getBeforeMethods()) {
-                runMethod(beforeMethod, object, successfulBefore, failedBefore);
-            }
+            failedBefore = runMethods(testingContext.getBeforeMethods(), object);
 
-            if (failedBefore.get() == 0) {
+
+            if (failedBefore == 0) {
                 //выполняем @Test
-                runMethod(testMethod, object, successfulTests, failedTests);
-            } else {
-                failedTests.incrementAndGet();
+                failedTests = runMethods(Arrays.asList(testMethod), object);
+            } else{
+                failedTests++;
             }
 
             //выполняем все @After
-            for (Method afterMethod : testingContext.getAfterMethods()) {
-                runMethod(afterMethod, object, successfulAfter, failedAfter);
-            }
+            failedAfter = runMethods(testingContext.getAfterMethods(), object);
+
         }
         System.out.println("--------------------Methods outputs--------------------");
         System.out.println("@Test statistic:");
         System.out.println("Whole count of tests = " + testingContext.getTestMethods().size());
-        System.out.println("Count of successfully passed tests = " + successfulTests.intValue());
-        System.out.println("Count of failed tests = " + failedTests.intValue());
+        System.out.println("Count of successfully passed tests = " + (testingContext.getTestMethods().size() - failedTests));
+        System.out.println("Count of failed tests = " + failedTests);
         //before
         System.out.println("@Before  statistic:");
         System.out.println("Whole count of @Before methods = " + testingContext.getBeforeMethods().size());
-        System.out.println("Count of successfully passed @Before methods = " + successfulBefore.intValue());
-        System.out.println("Count of failed @Before methods = " + failedBefore.intValue());
+        System.out.println("Count of successfully passed @Before methods = " + (testingContext.getBeforeMethods().size() - failedBefore));
+        System.out.println("Count of failed @Before methods = " + failedBefore);
         //after
         System.out.println("@After statistic:");
         System.out.println("Whole count of @After methods = " + testingContext.getAfterMethods().size());
-        System.out.println("Count of successfully passed @After methods = " + successfulAfter.intValue());
-        System.out.println("Count of failed @After methods = " + failedAfter.intValue());
+        System.out.println("Count of successfully passed @After methods = " + (testingContext.getAfterMethods().size() - failedAfter));
+        System.out.println("Count of failed @After methods = " + failedAfter);
 
     }
 
-    private void runMethod(Method method, Object o, AtomicInteger successfulTests, AtomicInteger failedTests) {
-        try {
-            method.invoke(o);
-            successfulTests.incrementAndGet();
-        } catch (Exception ex) {
-            failedTests.incrementAndGet();
+    private int runMethods(List<Method> methods, Object o) {
+        int failed = 0;
+        for (Method method : methods) {
+            try {
+                method.invoke(o);
+            } catch (Exception ex) {
+                failed++;
+            }
         }
+        return failed;
     }
 
 

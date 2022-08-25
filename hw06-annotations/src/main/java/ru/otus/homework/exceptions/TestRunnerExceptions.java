@@ -1,4 +1,4 @@
-package ru.otus.homework;
+package ru.otus.homework.exceptions;
 
 import java.lang.reflect.InvocationTargetException;
 

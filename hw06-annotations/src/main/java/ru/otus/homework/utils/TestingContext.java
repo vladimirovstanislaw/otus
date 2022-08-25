@@ -1,4 +1,8 @@
-package ru.otus.homework;
+package ru.otus.homework.utils;
+
+import ru.otus.homework.annotations.After;
+import ru.otus.homework.annotations.Before;
+import ru.otus.homework.annotations.Test;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;

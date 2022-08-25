@@ -1,5 +1,9 @@
 package ru.otus.homework;
 
+import ru.otus.homework.annotations.After;
+import ru.otus.homework.annotations.Before;
+import ru.otus.homework.annotations.Test;
+
 public class Testable {
     //happy path, without exception, all works fine
     @Before
