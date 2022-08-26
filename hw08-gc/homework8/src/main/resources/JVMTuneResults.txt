@@ -1,0 +1,30 @@
+-Xmx256M - java.lang.OutOfMemoryError: Java heap space
+-Xmx275M - java.lang.OutOfMemoryError: Java heap space
+-Xmx279M - spend msec:18637, sec:18 - JVM memory < Xmx279M throws OutOfMemoryError
+-Xmx282M - spend msec:17139, sec:17
+-Xmx290M - spend msec:17785, sec:17
+-Xmx300M - spend msec:15702, sec:15
+-Xmx380M - spend msec:15717, sec:15
+-Xmx512M - spend msec:12783, sec:12
+-Xmx768M - spend msec:13084, sec:13
+-Xmx1024M - spend msec:12034, sec:12
+-Xmx1280M - spend msec:12966, sec:12
+-Xmx1536M - spend msec:11359, sec:11
+-Xmx1792M - spend msec:11387, sec:11
+-Xmx2048M - spend msec:11042, sec:11 - fastest
+-Xmx2304M - spend msec:12927, sec:12
+-Xmx2560M - spend msec:11572, sec:11
+--------------------------------------------------------------------------------------
+After tune:
+
+-Xmx128M - java.lang.OutOfMemoryError: Java heap space
+-Xmx200M - java.lang.OutOfMemoryError: Java heap space
+-Xmx220M - spend msec:5866, sec:5
+-Xmx256M - spend msec:4563, sec:4
+-Xmx512M - spend msec:3475, sec:3
+-Xmx768M - spend msec:3740, sec:3
+-Xmx1024M - spend msec:3681, sec:3
+-Xmx1280M - spend msec:3292, sec:3 - fastest
+-Xmx1536M - spend msec:3705, sec:3
+-Xmx1790M - spend msec:3514, sec:3
+-Xmx2048M - spend msec:3831, sec:3
