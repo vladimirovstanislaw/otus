@@ -8,4 +8,5 @@ include 'hw06-annotations'
 include 'hw08-gc'
 include 'hw08-gc:homework8'
 findProject(':hw08-gc:homework8')?.name = 'homework8'
+include 'L09-Docker'
 
