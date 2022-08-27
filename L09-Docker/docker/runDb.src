@@ -3,5 +3,5 @@ docker run --rm --name pg-docker \
 -e POSTGRES_USER=usr \
 -e POSTGRES_DB=demoDB \
 --add-host host.docker.internal:host-gateway \
--p 127.0.0.1:5430:5432 \
+-p 5432:5432 \
 postgres:13
