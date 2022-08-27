@@ -2,9 +2,54 @@ docker run hello-world
 docker stats
 ------
 docker run --rm --name rest-service \
--p 8080:8080 \
+-p 127.0.0.1:8080:8080 \
 --network="host" \
-registry.gitlab.com/petrelevich/dockerregistry/rest-hello:0.0.0-8-main
+registry.gitlab.com/otus33/dockerexample:0.0.0-31-main
+
+docker run --rm --name rest-service \
+-p 8080:8080 \
+--add-host host.docker.internal \
+registry.gitlab.com/otus33/dockerexample:0.0.0-31-main
+
+docker run --rm --name rest-service \
+-p 8080:8080 \
+--network="host.docker.internal" \
+registry.gitlab.com/otus33/dockerexample:0.0.0-31-main
+
+docker run --rm --name rest-service \
+-p host.docker.internal:8080:8080 \
+registry.gitlab.com/otus33/dockerexample:0.0.0-31-main
+
+docker run --rm --name rest-service \
+-p docker.for.win.localhost:8080:8080 \
+registry.gitlab.com/otus33/dockerexample:0.0.0-31-main
+
+docker run --rm --name rest-service \
+--network="host" \
+-p 172.28.48.1:8080:8080 \
+registry.gitlab.com/otus33/dockerexample:0.0.0-31-main
+
+docker run --rm --name rest-service \
+--network="host" \
+-p 192.168.0.24:8080:8080 \
+registry.gitlab.com/otus33/dockerexample:0.0.0-31-main
+
+docker run --rm --name rest-service \
+-p localhost:8080:8080 \
+registry.gitlab.com/otus33/dockerexample:0.0.0-31-main
+
+docker run --rm --name rest-service \
+--network="host" \
+-p 127.0.0.1:8080:8080 \
+registry.gitlab.com/otus33/dockerexample:0.0.0-31-main
+
+
+docker run --rm --name rest-service \
+--add-host host.docker.internal:host-gateway \
+-p 8080:8080 \
+registry.gitlab.com/otus33/dockerexample:0.0.0-31-main
+
+docker run --rm --name rest-service  -p host.docker.internal:8080:8080  registry.gitlab.com/otus33/dockerexample:0.0.0-31-main
 
 --------------------------
 docker run --rm --name rest-service \

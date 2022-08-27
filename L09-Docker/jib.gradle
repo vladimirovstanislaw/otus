@@ -1,14 +1,19 @@
 jib {
     container.creationTime = 'USE_CURRENT_TIMESTAMP'
     from {
-        image = 'bellsoft/liberica-openjdk-alpine-musl:17.0.2-9'
+        //image = 'bellsoft/liberica-openjdk-alpine-musl:17.0.2-9'
+        image = 'bellsoft/liberica-openjdk-alpine-musl:latest'
+        auth {
+            username = hubDockerUser
+            password = hubDockerPassword
+        }
     }
     to {
         tags = [project.version.toString()]
-        image = 'registry.gitlab.com/petrelevich/dockerregistry/rest-hello'
+        image = 'registry.gitlab.com/otus33/dockerexample'
         auth {
-            username="StasVladimirov"
-            password="ajhdfn93"
+            username = gitlabUser
+            password = gitlabPassword
         }
     }
 }

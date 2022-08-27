@@ -7,7 +7,7 @@ plugins {
 apply from: 'jib.gradle'
 
 group 'ru.otus'
-version '1'
+
 
 repositories {
     mavenCentral()
