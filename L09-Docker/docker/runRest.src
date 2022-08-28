@@ -4,35 +4,37 @@ docker stats
 docker run --rm --name rest-service \
 -p 8080:8080 \
 --network="host" \
-registry.gitlab.com/otus33/dockerexample:0.0.0-31-main
+registry.gitlab.com/otus33/dockerexample:0.0.0-39-main
 
 docker run --rm --name rest-service \
 -p 8080:8080 \
 --add-host host.docker.internal \
-registry.gitlab.com/otus33/dockerexample:0.0.0-31-main
+registry.gitlab.com/otus33/dockerexample:0.0.0-39-main
 
 docker run --rm --name rest-service \
 -p 8080:8080 \
 --network="host.docker.internal" \
-registry.gitlab.com/otus33/dockerexample:0.0.0-31-main
+registry.gitlab.com/otus33/dockerexample:0.0.0-39-main
 
 docker run --rm --name rest-service \
 -p host.docker.internal:8080:8080 \
-registry.gitlab.com/otus33/dockerexample:0.0.0-31-main
+registry.gitlab.com/otus33/dockerexample:0.0.0-39-main
 
 docker run --rm --name rest-service \
 -p docker.for.win.localhost:8080:8080 \
-registry.gitlab.com/otus33/dockerexample:0.0.0-31-main
+registry.gitlab.com/otus33/dockerexample:0.0.0-39-main
 
 docker run --rm --name rest-service \
 --network="host" \
 -p 172.28.48.1:8080:8080 \
-registry.gitlab.com/otus33/dockerexample:latest
+registry.gitlab.com/otus33/dockerexample:0.0.0-39-main
 
+
+//заработало, но нет доступа к сайту.
 docker run --rm --name rest-service \
 --network="host" \
 -p 192.168.0.24:8080:8080 \
-registry.gitlab.com/otus33/dockerexample:0.0.0-38-main
+registry.gitlab.com/otus33/dockerexample:0.0.0-39-main
 
 docker run --rm --name rest-service \
 -p localhost:8080:8080 \
