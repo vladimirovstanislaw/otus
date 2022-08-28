@@ -44,9 +44,11 @@ docker run --rm --name rest-service \
 registry.gitlab.com/otus33/dockerexample:0.0.0-31-main
 
 
+
+
 docker run --rm --name rest-service \
---add-host host.docker.internal:host-gateway \
 -p 8080:8080 \
+--add-host host.docker.internal:host-gateway \
 registry.gitlab.com/otus33/dockerexample:latest
 
 docker run --rm --name rest-service  -p host.docker.internal:8080:8080  registry.gitlab.com/otus33/dockerexample:0.0.0-31-main
