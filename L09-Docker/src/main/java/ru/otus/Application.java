@@ -24,6 +24,8 @@ public class Application {
         try {
             ip = InetAddress.getLocalHost();
             hostname = ip.getHostName();
+            var ipIp = ip.getAddress().toString();
+            System.out.println("ipIp:" + ipIp);
             System.out.println("Your current IP address : " + ip);
             System.out.println("Your current Hostname : " + hostname);
         } catch (UnknownHostException e) {
