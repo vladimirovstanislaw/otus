@@ -2,6 +2,14 @@ docker run --rm --name pg-docker \
 -e POSTGRES_PASSWORD=pwd \
 -e POSTGRES_USER=usr \
 -e POSTGRES_DB=demoDB \
---add-host host.docker.internal:host-gateway \
 -p 5430:5432 \
 postgres:13
+
+
+--add-host host.docker.internal:host-gateway \
+
+
+  git remote rename origin old-origin
+  git remote add origin https://gitlab.com/otus33/dockerexample.git
+  git push -u origin --all
+  git push -u origin --tags
