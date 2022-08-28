@@ -51,6 +51,6 @@ public class ReflectionHelper {
 
     //Надо потестить, что эта штука вообще делает
     public static Class<?>[] toClasses(Object[] args) {
-        return Arrays.stream(args).map(Object::getClass).toArray(Class<?>[]::new);
+        return Arrays.stream(args).map((object) -> object.getClass()).toArray(Class<?>[]::new);
     }
 }
