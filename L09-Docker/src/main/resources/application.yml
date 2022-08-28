@@ -8,6 +8,6 @@ management:
         enabled: true
 
 database:
-  url: "jdbc:postgresql://172.18.0.2:5430/demoDB"
+  url: "jdbc:postgresql://localhost:5430/demoDB"
   user: "usr"
   pwd: "pwd"
