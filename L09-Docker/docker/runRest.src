@@ -34,7 +34,7 @@ registry.gitlab.com/otus33/dockerexample:0.0.0-39-main
 docker run --rm --name rest-service \
 --network="host" \
 -p 192.168.0.24:8080:8080 \
-registry.gitlab.com/otus33/dockerexample:0.0.0-39-main
+registry.gitlab.com/otus33/dockerexample:0.0.0-41-main
 
 docker run --rm --name rest-service \
 -p localhost:8080:8080 \
