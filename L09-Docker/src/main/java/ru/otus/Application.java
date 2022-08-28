@@ -18,6 +18,7 @@ public class Application {
         System.out.println("TotalMemorySize, mb:" + os.getTotalMemorySize() / 1024 / 1024);
         System.out.println("maxMemory, mb:" + Runtime.getRuntime().maxMemory() / 1024 / 1024);
         System.out.println("freeMemory, mb:" + Runtime.getRuntime().freeMemory() / 1024 / 1024);
+        System.out.println("freeMemory, mb:" + Runtime.getRuntime().freeMemory() / 1024 / 1024);
 
         InetAddress ip;
         String hostname;
