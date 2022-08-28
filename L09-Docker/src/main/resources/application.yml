@@ -8,6 +8,6 @@ management:
         enabled: true
 
 database:
-  url: "jdbc:postgresql://host.docker.internal:5431/demoDB"
+  url: "jdbc:postgresql://localhost:5430/demoDB"
   user: "usr"
   pwd: "pwd"

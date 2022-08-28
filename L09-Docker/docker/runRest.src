@@ -2,7 +2,7 @@ docker run hello-world
 docker stats
 ------
 docker run --rm --name rest-service \
--p 127.0.0.1:8080:8080 \
+-p 8080:8080 \
 --network="host" \
 registry.gitlab.com/otus33/dockerexample:0.0.0-31-main
 
@@ -32,7 +32,7 @@ registry.gitlab.com/otus33/dockerexample:latest
 docker run --rm --name rest-service \
 --network="host" \
 -p 192.168.0.24:8080:8080 \
-registry.gitlab.com/otus33/dockerexample:latest
+registry.gitlab.com/otus33/dockerexample:0.0.0-38-main
 
 docker run --rm --name rest-service \
 -p localhost:8080:8080 \
