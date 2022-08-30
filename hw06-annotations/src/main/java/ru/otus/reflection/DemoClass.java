@@ -2,7 +2,7 @@ package ru.otus.reflection;
 
 import java.util.Objects;
 
-public class DemoClass {
+public class DemoClass implements DemoClassInt{
 
     public int publicFieldForDemo;
 
@@ -12,7 +12,7 @@ public class DemoClass {
         this.valuePrivate = valuePrivate;
     }
 
-
+    @SimpleAnnotation
     public String getValuePrivate() {
         return valuePrivate;
     }
@@ -27,7 +27,7 @@ public class DemoClass {
     }
 
 
-    //@SimpleAnnotation
+    @SimpleAnnotation
     @Override
     public String toString() {
         return "DemoClass{" +
