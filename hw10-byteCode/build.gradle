@@ -1,0 +1,65 @@
+plugins {
+    id 'java'
+    id 'com.github.johnrengelman.shadow'
+}
+
+group 'ru.otus'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.ow2.asm:asm-commons'
+    testImplementation('org.junit.jupiter:junit-jupiter-api')
+    testImplementation('org.junit.jupiter:junit-jupiter-engine')
+    testImplementation('org.junit.jupiter:junit-jupiter-params')
+    testImplementation('org.assertj:assertj-core')
+    testImplementation('org.mockito:mockito-core')
+    testImplementation('org.mockito:mockito-junit-jupiter')
+}
+
+task shadowSetterDemo(type: Jar, dependsOn: shadowJar) {
+    archiveBaseName.set('setterDemo')
+    manifest {
+        attributes 'Main-Class': 'ru.otus.aop.instrumentation.setter.SetterDemo'
+        attributes 'Premain-Class': 'ru.otus.aop.instrumentation.setter.Agent'
+    }
+    from zipTree(shadowJar.archiveFile)
+}
+
+task shadowProxyDemo(type: Jar, dependsOn: shadowJar) {
+    archiveBaseName.set('proxyDemo')
+    manifest {
+        attributes 'Main-Class': 'ru.otus.aop.instrumentation.proxy.ProxyDemo'
+        attributes 'Premain-Class': 'ru.otus.aop.instrumentation.proxy.Agent'
+    }
+    from zipTree(shadowJar.archiveFile)
+}
+
+task shadowSummatorDemo(type: Jar, dependsOn: shadowJar) {
+    archiveBaseName.set('summatorDemo')
+    manifest {
+        attributes 'Main-Class': 'ru.otus.aop.instrumentation.changer.SummatorDemo'
+        attributes 'Premain-Class': 'ru.otus.aop.instrumentation.changer.Agent'
+    }
+    from zipTree(shadowJar.archiveFile)
+}
+
+test {
+    useJUnitPlatform()
+    testLogging {
+        events "passed", "skipped", "failed"
+    }
+}
+
+tasks.withType(JavaCompile) {
+    options.with {
+        encoding = 'UTF-8'
+    }
+}
+
+
+tasks.build.dependsOn tasks.shadowSetterDemo
+tasks.build.dependsOn tasks.shadowProxyDemo
+tasks.build.dependsOn tasks.shadowSummatorDemo

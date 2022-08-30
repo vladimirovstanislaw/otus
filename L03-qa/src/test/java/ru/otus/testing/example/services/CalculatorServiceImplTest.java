@@ -80,10 +80,10 @@ public class CalculatorServiceImplTest {
         inOrder.verify(ioService, times(1)).out(String.format("%d * %d = %d", d1, d2, d1 * d2));
     }
 
-    @DisplayName("вывести ответ на главный вопрос жизни, вселенной и всего такого не менее, чем за 5 сек")
-    @Test
-    void shouldDisplayAnswerForMainQuestion() {
-        assertTimeout(Duration.ofSeconds(6), () -> calculatorService.longCalculations());
-    }
+//    @DisplayName("вывести ответ на главный вопрос жизни, вселенной и всего такого не менее, чем за 5 сек")
+//    @Test
+//    void shouldDisplayAnswerForMainQuestion() {
+//        assertTimeout(Duration.ofSeconds(6), () -> calculatorService.longCalculations());
+//    }
 
 }
