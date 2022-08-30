@@ -1,7 +1,7 @@
 package ru.otus.aop.instrumentation.changer;
 
 /*
-java -javaagent:summatorDemo.jar -jar summatorDemo.jar
+    java -javaagent:summatorDemo.jar -jar summatorDemo.jar
 */
 public class SummatorDemo {
     public static void main(String[] args) {
