@@ -11,6 +11,10 @@ class TestLogging implements TestLoggingInterface {
         }
         System.out.println("result: " + result);
     }
+    @Log
+    public void calculation(String h) {
+        System.out.println("result: " + h);
+    }
 
     public void anotherCalculation() {
         System.out.println("Another calculation");
