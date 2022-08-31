@@ -1,0 +1,29 @@
+plugins {
+    id 'java'
+}
+
+group 'ru.otus'
+version 'unspecified'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+
+    implementation 'org.checkerframework:checker:3.24.0'
+    implementation 'org.jetbrains:annotations'
+    implementation 'net.jcip:jcip-annotations:1.0'
+    implementation 'com.github.spotbugs:spotbugs-annotations:4.7.1'
+    implementation 'com.google.errorprone:error_prone_annotations:2.15.0'
+
+    testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-engine'
+    testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-params'
+    testImplementation group: 'org.assertj', name: 'assertj-core'
+}
+
+test {
+    useJUnitPlatform()
+}
