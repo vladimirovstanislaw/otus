@@ -22,12 +22,11 @@ public class ProxyIoc {
     static class DemoInvocationHandler implements InvocationHandler {
         private static int count = 0;
         private final TestLoggingInterface testLoggingClass;
-        private Set<MethodWithAnnotation> hashMap = new HashSet<>();
+        private Set<MethodWithAnnotation> methodSet = new HashSet<>();
 
         DemoInvocationHandler(TestLoggingInterface testLoggingClass) {
             this.testLoggingClass = testLoggingClass;
         }
-
 
         @Override
         public Object invoke(Object proxy, Method method, Object[] args) throws Exception {
@@ -43,7 +42,7 @@ public class ProxyIoc {
                                 methodWithAnnotation.setMethod(publicMethod);
                                 methodWithAnnotation.setArgsClasses(toClasses(publicMethod.getParameterTypes()));
                                 methodWithAnnotation.setArgsClassesString(toClassesString(publicMethod.getParameterTypes()));
-                                hashMap.add(methodWithAnnotation);
+                                methodSet.add(methodWithAnnotation);
                             }
                         } else {
                             if (this.testLoggingClass.getClass().getMethod(publicMethod.getName()).isAnnotationPresent(Log.class) == true) {
@@ -51,7 +50,7 @@ public class ProxyIoc {
                                 methodWithAnnotation.setMethod(publicMethod);
                                 methodWithAnnotation.setArgsClasses(toClasses(publicMethod.getParameterTypes()));
                                 methodWithAnnotation.setArgsClassesString(toClassesString(publicMethod.getParameterTypes()));
-                                hashMap.add(methodWithAnnotation);
+                                methodSet.add(methodWithAnnotation);
                             }
 
                         }
@@ -61,7 +60,7 @@ public class ProxyIoc {
             //проверяем, есть ли метод с таким именем в нашей мапе
             MethodWithAnnotation tryToMakeItFaster = null;
 
-            for (var loggedMethod : hashMap) {
+            for (var loggedMethod : methodSet) {
                 if (loggedMethod.getMethod().getName().equals(method.getName())) {
                     if (Arrays.equals(loggedMethod.getArgsClassesString(), toClassesString(toClasses(args)))) {
                         tryToMakeItFaster = loggedMethod;
