@@ -6,6 +6,8 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
 
 
 public class ProxyIoc {
@@ -18,8 +20,9 @@ public class ProxyIoc {
     }
 
     static class DemoInvocationHandler implements InvocationHandler {
+        private static int count = 0;
         private final TestLoggingInterface testLoggingClass;
-        HashMap<String, MethodWithAnnotation> hashMap = new HashMap<>();
+        private Set<MethodWithAnnotation> hashMap = new HashSet<>();
 
         DemoInvocationHandler(TestLoggingInterface testLoggingClass) {
             this.testLoggingClass = testLoggingClass;
@@ -28,53 +31,61 @@ public class ProxyIoc {
 
         @Override
         public Object invoke(Object proxy, Method method, Object[] args) throws Exception {
-            System.out.println("====================================================================================================");
-            if (hashMap.size() == 0) {
+            //собираем всю инфромацию о методах класса
+            if (count == 0) {
+                count++;
                 var methods = this.testLoggingClass.getClass().getMethods();
                 for (var publicMethod : methods) {
-                    System.out.println("this.method: " + publicMethod);
-                    System.out.println("this.method.hashCode(): " + publicMethod.hashCode());
-                    System.out.println("this.method.getName(): " + publicMethod.getName());
                     if (publicMethod.getDeclaredAnnotations().length > 0) {
+                        if (publicMethod.getParameterTypes().length > 0) {
+                            if (this.testLoggingClass.getClass().getMethod(publicMethod.getName(), toClasses(args)).isAnnotationPresent(Log.class) == true) {
+                                MethodWithAnnotation methodWithAnnotation = new MethodWithAnnotation();
+                                methodWithAnnotation.setMethod(publicMethod);
+                                methodWithAnnotation.setArgsClasses(toClasses(publicMethod.getParameterTypes()));
+                                methodWithAnnotation.setArgsClassesString(toClassesString(publicMethod.getParameterTypes()));
+                                hashMap.add(methodWithAnnotation);
+                            }
+                        } else {
+                            if (this.testLoggingClass.getClass().getMethod(publicMethod.getName()).isAnnotationPresent(Log.class) == true) {
+                                MethodWithAnnotation methodWithAnnotation = new MethodWithAnnotation();
+                                methodWithAnnotation.setMethod(publicMethod);
+                                methodWithAnnotation.setArgsClasses(toClasses(publicMethod.getParameterTypes()));
+                                methodWithAnnotation.setArgsClassesString(toClassesString(publicMethod.getParameterTypes()));
+                                hashMap.add(methodWithAnnotation);
+                            }
 
-                        if (this.testLoggingClass.getClass().getMethod(method.getName(), toClasses(args)).isAnnotationPresent(Log.class) == true) {
-                            MethodWithAnnotation methodWithAnnotation = new MethodWithAnnotation();
-                            methodWithAnnotation.setMethod(publicMethod);
-                            methodWithAnnotation.setAnnotatedByLog(true);
-                            methodWithAnnotation.setArgsClasses(toClasses(publicMethod.getParameterTypes()));
-                            hashMap.put(publicMethod.getName(), methodWithAnnotation);
                         }
                     }
                 }
             }
+            //проверяем, есть ли метод с таким именем в нашей мапе
+            MethodWithAnnotation tryToMakeItFaster = null;
 
-            System.out.println("00000000000000000Proxy00000000000000000");
-            System.out.println("method:" + method);
-            System.out.println("method.hashCode(): " + method.hashCode());
-            System.out.println("method.getName(): " + method.getName());
-            System.out.println("args" + args);
-            var tryToMakeItFaster = hashMap.get(method.getName());
+            for (var loggedMethod : hashMap) {
+                if (loggedMethod.getMethod().getName().equals(method.getName())) {
+                    if (Arrays.equals(loggedMethod.getArgsClassesString(), toClassesString(toClasses(args)))) {
+                        tryToMakeItFaster = loggedMethod;
+                    }
+                }
+            }
+
+
             if (tryToMakeItFaster != null) {
 
-
-                System.out.println("hhi butch");
-                if (args == null) {
-                    var hasAnnotation = this.testLoggingClass.getClass().getMethod(method.getName()).isAnnotationPresent(Log.class);
-                    if (hasAnnotation == true) {
-                        System.out.print("executed method: " + method.getName() + ", param: null");
-                        System.out.println();
-                    }
+                if (args == null || args.length == 0) {
+                    System.out.print("executed method: " + method.getName() + ", param: null");
+                    System.out.println();
                     return method.invoke(testLoggingClass);
                 } else {
-                    var hasAnnotation = this.testLoggingClass.getClass().getMethod(method.getName(), toClasses(args)).isAnnotationPresent(Log.class);
-                    if (hasAnnotation == true) {
-                        System.out.print("executed method: " + method.getName() + ", param:");
-                        int[] array = (int[]) args[0];
-                        for (int x : array) {
-                            System.out.print(" " + x);
-                        }
-                        System.out.println();
+
+                    System.out.print("executed method: " + method.getName() + ", param:");
+
+                    int[] array = (int[]) args[0];
+                    for (int x : array) {
+                        System.out.print(" " + x);
                     }
+                    System.out.println();
+
                     return method.invoke(testLoggingClass, args);
                 }
             } else {
@@ -86,13 +97,28 @@ public class ProxyIoc {
     }
 
     private static Class<?>[] toClasses(Object[] args) {
-//            if ()
-//                Class<?>[] returnable = new Class<?>[args.length];
-//
-//            for (var arg : args) {
-//                returnable.
-//            }
-        return Arrays.stream(args).map(Object::getClass).toArray(Class<?>[]::new);
+        if (args == null) {
+            return null;
+        } else {
+            return Arrays.stream(args).map(Object::getClass).toArray(Class<?>[]::new);
+        }
+    }
+
+    private static String[] toClassesString(Class<?>[] args) {
+        if (args != null && args.length > 0) {
+            String[] classesOfArgs = new String[args.length];
+            for (int i = 0; i < args.length; i++) {
+                if (args[i].getName().equals("int")) {
+                    classesOfArgs[i] = "java.lang.Integer";
+                } else {
+                    classesOfArgs[i] = args[i].getName();
+                }
+            }
+            Arrays.sort(classesOfArgs);
+            return classesOfArgs;
+        } else {
+            return null;
+        }
     }
 
 }

@@ -1,13 +1,20 @@
 package ru.otus.homework;
 
 import java.lang.reflect.Method;
+import java.util.Arrays;
 
 public class MethodWithAnnotation {
     private Method method;
     private Class<?>[] argsClasses;
-    private Boolean isAnnotatedByLog;
+    private String[] argsClassesString;
 
     public MethodWithAnnotation() {
+    }
+
+    public MethodWithAnnotation(Method method, Class<?>[] argsClasses, String[] argsClassesString) {
+        this.method = method;
+        this.argsClasses = argsClasses;
+        this.argsClassesString = argsClassesString;
     }
 
     public Method getMethod() {
@@ -26,11 +33,20 @@ public class MethodWithAnnotation {
         this.argsClasses = argsClasses;
     }
 
-    public Boolean getAnnotatedByLog() {
-        return isAnnotatedByLog;
+    public String[] getArgsClassesString() {
+        return argsClassesString;
     }
 
-    public void setAnnotatedByLog(Boolean annotatedByLog) {
-        isAnnotatedByLog = annotatedByLog;
+    public void setArgsClassesString(String[] argsClassesString) {
+        this.argsClassesString = argsClassesString;
+    }
+
+    @Override
+    public String toString() {
+        return "MethodWithAnnotation{" +
+                "method=" + method +
+                ", argsClasses=" + Arrays.toString(argsClasses) +
+                ", argsClassesString=" + Arrays.toString(argsClassesString) +
+                '}';
     }
 }
