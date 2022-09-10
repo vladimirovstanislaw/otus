@@ -20,17 +20,17 @@ public class ProxyIoc {
     }
 
     static class DemoInvocationHandler implements InvocationHandler {
-        private static int count = 0;
+        private static int count;
         private final TestLoggingInterface testLoggingClass;
         private Set<MethodWithAnnotation> methodSet = new HashSet<>();
 
         DemoInvocationHandler(TestLoggingInterface testLoggingClass) {
             this.testLoggingClass = testLoggingClass;
+            count = 0;
         }
 
         @Override
         public Object invoke(Object proxy, Method method, Object[] args) throws Exception {
-            //собираем всю инфромацию о методах класса
             if (count == 0) {
                 count++;
                 var methods = this.testLoggingClass.getClass().getMethods();
@@ -57,7 +57,6 @@ public class ProxyIoc {
                     }
                 }
             }
-            //проверяем, есть ли метод с таким именем в нашей мапе
             MethodWithAnnotation tryToMakeItFaster = null;
 
             for (var loggedMethod : methodSet) {
