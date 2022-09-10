@@ -18,7 +18,7 @@ public class Auseful {
         var isIterableList = Iterable.class.isAssignableFrom(list);
         System.out.println("isIterableString:" + isIterableString + ", isIterableList:" + isIterableList);
 
-        var hasAnnotation = DemoClass.class.getMethod("toString").isAnnotationPresent(SimpleAnnotation.class);
+        var hasAnnotation = DemoClassInt.class.getMethod("getValuePrivate").isAnnotationPresent(SimpleAnnotation.class);
         System.out.println("hasAnnotation: " + hasAnnotation);
 
         var listClasses = list.getClasses();
