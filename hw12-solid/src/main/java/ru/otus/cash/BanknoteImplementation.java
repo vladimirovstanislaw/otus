@@ -2,15 +2,15 @@ package ru.otus.cash;
 
 public class BanknoteImplementation implements Banknote {
 
-    private final BanknoteDenominationImplementation denomination;
+    private final BanknoteDenomination denomination;
 
 
-    public BanknoteImplementation(BanknoteDenominationImplementation denomination) {
+    public BanknoteImplementation(BanknoteDenomination denomination) {
         this.denomination = denomination;
     }
 
     @Override
-    public BanknoteDenomination getDenomination() {
-        return denomination;
+    public int getDenomination() {
+        return denomination.denomination();
     }
 }
