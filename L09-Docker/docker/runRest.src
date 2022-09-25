@@ -3,15 +3,14 @@ docker stats
 ------
 docker run --rm --name rest-service \
 -p 8080:8080 \
-registry.gitlab.com/otus33/dockerexample:0.0.0-50-main
+registry.gitlab.com/otus33/dockerexample:0.0.0-51-main
 --------------------------
 docker run --rm --name rest-service \
 --memory=512m \
 --cpus 2 \
 -p 8080:8080 \
---network="host" \
 -e JAVA_TOOL_OPTIONS="-Xms350m -Xmx350m -XX:+UseSerialGC" \
-registry.gitlab.com/petrelevich/dockerregistry/rest-hello:0.0.0-8-main
+registry.gitlab.com/otus33/dockerexample:0.0.0-51-main
 
 --------------------------
 
