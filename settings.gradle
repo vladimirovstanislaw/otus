@@ -11,4 +11,4 @@ findProject(':hw08-gc:homework8')?.name = 'homework8'
 include 'L09-Docker'
 include 'hw10-byteCode'
 include 'L11-java8'
-
+include 'hw12-solid'

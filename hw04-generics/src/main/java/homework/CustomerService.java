@@ -21,6 +21,7 @@ public class CustomerService {
     private final NavigableMap<Customer, String> treeMap = new TreeMap<>(Comparator.comparingLong(Customer::getScores));
 
 
+
     public Map.Entry<Customer, String> getSmallest() {
         Map.Entry<Customer, String> smallestEntry = treeMap.firstEntry();
         return new AbstractMap.SimpleEntry<>(new Customer(smallestEntry.getKey().getId(), smallestEntry.getKey().getName(), smallestEntry.getKey().getScores()), smallestEntry.getValue());
