@@ -7,7 +7,7 @@ import java.util.List;
 public interface ATM {
     List<Banknote> giveMoney(int amount);
 
-    List<Banknote> putMoney(List<Banknote> wadOfMoney);
+    void putMoney(List<Banknote> wadOfMoney);
 
     int showAmountOfAvailableMoney();
 

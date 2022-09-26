@@ -57,14 +57,9 @@ public class ATMImplementation implements ATM {
 
     }
 
-    public static void main(String[] args) {
-        System.out.println((int) 4.5 / 2);
-    }
-
-
     @Override
-    public List<Banknote> putMoney(List<Banknote> wadOfMoney) {
-        List<Banknote> wrongMoney = new ArrayList<>();
+    public void putMoney(List<Banknote> wadOfMoney) {
+
         for (Banknote banknote : wadOfMoney) {
 
             if (banknoteService.getAllBanknoteTypesValues().contains(banknote.getDenomination())) {
@@ -74,10 +69,10 @@ public class ATMImplementation implements ATM {
                     }
                 }
             } else {
-                wrongMoney.add(banknote);
+                throw new UnsupportedOperationException("Wrong banknote");
             }
         }
-        return wrongMoney;
+
     }
 
     @Override

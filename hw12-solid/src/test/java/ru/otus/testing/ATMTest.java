@@ -12,6 +12,7 @@ import ru.otus.cash.BanknoteDenomination;
 import ru.otus.cash.BanknoteDenominationImplementation;
 import ru.otus.cash.BanknoteImplementation;
 
+import javax.management.RuntimeErrorException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -73,8 +74,7 @@ public class ATMTest {
 
     @Test
     public void checkListOfWithWrongMoney() {
-        List<Banknote> wrongBanknotes = atm.putMoney(List.of(new BanknoteImplementation(wrongCash)));
-        Assertions.assertEquals(1, wrongBanknotes.size());
+        Assertions.assertThrows(UnsupportedOperationException.class, () -> atm.putMoney(List.of(new BanknoteImplementation(wrongCash))));
     }
 
     @Test
