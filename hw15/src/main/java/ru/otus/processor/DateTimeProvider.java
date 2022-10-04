@@ -1,7 +1,8 @@
-package ru.otus.listener.homework;
+package ru.otus.processor;
 
 import java.time.LocalDateTime;
 
+@FunctionalInterface
 public interface DateTimeProvider {
     LocalDateTime getDate();
 }

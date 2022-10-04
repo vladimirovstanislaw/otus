@@ -3,7 +3,7 @@ package ru.otus.model;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Message {
+public class Message implements Cloneable {
     private final long id;
     private final String field1;
     private final String field2;
@@ -129,6 +129,19 @@ public class Message {
                 ", field9='" + field9 + '\'' +
                 ", field10='" + field10 + '\'' +
                 '}';
+    }
+
+    @Override
+    public Message clone() {
+        ObjectForMessage objectForMessage = new ObjectForMessage();
+        List<String> listOfData = new ArrayList<>();
+        for (var data : this.getField13().getData()) {
+            listOfData.add(data);
+        }
+        objectForMessage.setData(listOfData);
+        Message messageCopy = new Message(this.getId(), this.getField1(), this.getField2(), this.getField3(), this.getField4(), this.getField5(), this.getField6(), this.getField7(), this.getField8(), this.getField9(), this.getField10(), this.getField11(), this.getField12(), objectForMessage);
+        return messageCopy;
+
     }
 
     public static class Builder {

@@ -47,9 +47,13 @@ class HistoryListenerTest {
     }
 
     @Test
-    void throwingExceptionTest() throws EvenSecondException, InterruptedException {
+    void throwingExceptionTest() throws EvenSecondException, InterruptedException {  //тест для Change11And12FieldsProcessor
         var throwingExceptionsProcessor = new
-                ThrowingExceptionsProcessor();
+                ThrowingExceptionsProcessor(() -> LocalDateTime.now());//не читаемый комментарий из прошлого pr: не очень понятно, как это работает.
+        //LocalDateTime.now() возвращает LocalDateTime. Наш интерфейс DateTimeProvider так же возвращает LocalDateTime. С этим всё ясно.
+        //Однако как мы в ThrowingExceptionsProcessor в данном вызове
+        // var seconds = dateTimeProvider.getDate().getSecond();
+        // получаем возможность подменить настоящий интерфейс объекта LocalDateTime нашим интерфейсом?
         var seconds = LocalDateTime.now().getSecond();
 
         if (seconds % 2 == 1) {
