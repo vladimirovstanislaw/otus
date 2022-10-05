@@ -66,11 +66,6 @@ public class ATMTest {
         Assertions.assertEquals(16030, atm.showAmountOfAvailableMoney());
     }
 
-    @Test
-    public void checkPutAndAmountWithWrongMoney() {
-        atm.putMoney(List.of(new BanknoteImplementation(wrongCash)));
-        Assertions.assertEquals(16030, atm.showAmountOfAvailableMoney());
-    }
 
     @Test
     public void checkListOfWithWrongMoney() {
