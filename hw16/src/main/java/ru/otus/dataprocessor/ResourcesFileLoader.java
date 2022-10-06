@@ -2,47 +2,39 @@ package ru.otus.dataprocessor;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.google.gson.stream.JsonReader;
 import ru.otus.model.Measurement;
 
-import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.IOException;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ResourcesFileLoader implements Loader {
     private final Gson gson = new Gson();
+    private static final Type REVIEW_TYPE = new TypeToken<ArrayList<Measurement>>() {
+    }.getType();
+    private final String fileName;
+
 
     public ResourcesFileLoader(String fileName) {
+        this.fileName = fileName;
     }
+
 
     @Override
     public List<Measurement> load() {
-        //читает файл, парсит и возвращает результат
-        List<Measurement> measurementList = new ArrayList<>();
-        String pathToFile = "C:\\prj\\otus\\hw16\\src\\main\\resources\\inputData.json";
-        String tempData = "";
-        try (var bufferedReader = new BufferedReader(new FileReader(pathToFile))) {
-            System.out.println("text from the file:");
-            String line;
 
-            while ((line = bufferedReader.readLine()) != null) {
-                System.out.println(line);
-                tempData += line;
-            }
-        } catch (Exception ex) {
-
+        try (JsonReader reader = new JsonReader(new FileReader(ResourcesFileLoader.class.getClassLoader().getResource(fileName).getFile()))) {
+            List<Measurement> data = gson.fromJson(reader, REVIEW_TYPE);
+            return data;
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
-        List<Measurement> k = gson.fromJson(tempData, new TypeToken<ArrayList<Measurement>>() {
-        }.getType());
 
-
-        return null;
     }
-
-    public static void main(String[] args) {
-        ResourcesFileLoader resourcesFileLoader = new
-                ResourcesFileLoader("");
-        resourcesFileLoader.load();
-    }
-
 }
