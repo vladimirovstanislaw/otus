@@ -26,7 +26,7 @@ public class FileSerializer implements Serializer {
         try (JsonWriter jsonWriter = new JsonWriter(new FileWriter(fileName))) {
             gson.toJson(data, REVIEW_TYPE, jsonWriter);
         } catch (Exception ex) {
-
+            throw new FileProcessException(ex);
         }
     }
 

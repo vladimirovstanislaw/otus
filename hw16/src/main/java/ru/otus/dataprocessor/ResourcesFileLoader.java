@@ -23,17 +23,13 @@ public class ResourcesFileLoader implements Loader {
         this.fileName = fileName;
     }
 
-
     @Override
     public List<Measurement> load() {
-
         try (JsonReader reader = new JsonReader(new FileReader(ResourcesFileLoader.class.getClassLoader().getResource(fileName).getFile()))) {
             List<Measurement> data = gson.fromJson(reader, REVIEW_TYPE);
             return data;
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+        } catch (Exception ex) {
+            throw new FileProcessException(ex);
         }
 
     }
