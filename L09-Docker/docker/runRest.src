@@ -1,9 +1,9 @@
 docker run hello-world
 docker stats
 ------
-docker run --rm --name rest-service \
--p 8080:8080 \
-registry.gitlab.com/otus33/dockerexample:0.0.0-51-main
+//properly run for Win:
+docker run --rm --name rest-service -p 8080:8080 registry.gitlab.com/otus33/dockerexample:0.0.0-51-main
+
 --------------------------
 docker run --rm --name rest-service \
 --memory=512m \
