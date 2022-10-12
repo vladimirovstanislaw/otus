@@ -1,6 +1,9 @@
 package ru.otus.crm.model;
 
+import ru.otus.homework.mapper.Id;
+
 public class Manager {
+    @Id
     private Long no;
     private String label;
     private String param1;

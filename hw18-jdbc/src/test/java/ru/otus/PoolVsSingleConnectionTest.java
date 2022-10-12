@@ -2,7 +2,11 @@ package ru.otus;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
+import org.assertj.core.api.AssertionsForClassTypes;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.io.TempDir;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.slf4j.Logger;
@@ -11,7 +15,15 @@ import org.testcontainers.containers.BindMode;
 import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
+import ru.otus.crm.model.Client;
+import ru.otus.crm.model.Manager;
+import ru.otus.homework.mapper.*;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -92,4 +104,6 @@ class PoolVsSingleConnectionTest {
     private Connection getConnection(boolean usePool) throws SQLException {
         return usePool ? dataSourcePool.getConnection() : makeSingleConnection();
     }
+
+
 }

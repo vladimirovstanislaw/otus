@@ -18,6 +18,7 @@ public class DbExecutorImpl implements DbExecutor {
             for (var idx = 0; idx < params.size(); idx++) {
                 pst.setObject(idx + 1, params.get(idx));
             }
+            pst.getParameterMetaData();
             pst.executeUpdate();
             try (var rs = pst.getGeneratedKeys()) {
                 rs.next();
