@@ -18,4 +18,8 @@ include 'hw16'
 include 'L17-nio-logging'
 include 'hw18-jdbc'
 include 'hw-18'
+include 'L19-DBs'
+include 'L20-Hibernate'
+include 'hw21-JPQL'
+include 'hw21'
 
