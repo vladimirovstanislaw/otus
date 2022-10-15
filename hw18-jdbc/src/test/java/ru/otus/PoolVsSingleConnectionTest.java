@@ -30,7 +30,7 @@ import java.sql.SQLException;
 import java.util.Properties;
 
 @DisplayName("Сравниваем скорость работы с connectionPool и без него ")
-@Testcontainers
+@Testcontainers// должен быть запущен Docker desktop, иначе тесты сваляться
 class PoolVsSingleConnectionTest {
     private static final Logger logger = LoggerFactory.getLogger(PoolVsSingleConnectionTest.class);
 
