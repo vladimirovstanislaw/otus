@@ -45,6 +45,8 @@ public class TransactionManagerHibernate implements TransactionManager {
         try {
             return action.call();
         } catch (Exception ex) {
+
+            System.out.println(ex);
             throw new DataBaseOperationException("Exception in transaction", ex);
         }
     }

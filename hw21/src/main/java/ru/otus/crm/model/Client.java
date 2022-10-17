@@ -5,11 +5,15 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
+import org.hibernate.annotations.*;
+import org.hibernate.annotations.CascadeType;
 import ru.otus.crm.model.Phone;
 
+
 import javax.persistence.*;
+
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.util.List;
 
 @Getter
@@ -21,22 +25,23 @@ import java.util.List;
 public class Client implements Cloneable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "id")
     private Long id;
 
     @Column(name = "name")
     private String name;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToOne(cascade = javax.persistence.CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "address_id")
     private Address address;
 
 
     //@OneToMany(cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
-    @OneToMany(cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
-    @JoinColumn(name ="client_id")
-    private List<Phone> phones;
+    @OneToMany(targetEntity = Phone.class, fetch = FetchType.EAGER)
+    @Cascade(CascadeType.ALL)
+    @JoinColumn(name = "client_id")
+     private List<Phone> phones;
 
     public Client(String name) {
         this.id = null;
