@@ -6,12 +6,12 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.*;
-import org.hibernate.annotations.CascadeType;
 import ru.otus.crm.model.Phone;
 
 
 import javax.persistence.*;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import java.util.List;
@@ -37,11 +37,10 @@ public class Client implements Cloneable {
     private Address address;
 
 
-    //@OneToMany(cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
-    @OneToMany(targetEntity = Phone.class, fetch = FetchType.EAGER)
-    @Cascade(CascadeType.ALL)
+
+    @OneToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     @JoinColumn(name = "client_id")
-     private List<Phone> phones;
+    private List<Phone> phones;
 
     public Client(String name) {
         this.id = null;
