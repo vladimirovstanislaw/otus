@@ -139,6 +139,4 @@ public class Client implements Cloneable {
     public int hashCode() {
         return getClass().hashCode();
     }
-
-
 }
