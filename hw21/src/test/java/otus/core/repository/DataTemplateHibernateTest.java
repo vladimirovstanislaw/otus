@@ -46,19 +46,6 @@ class DataTemplateHibernateTest extends AbstractHibernateTest {
                     return Optional.ofNullable(res.clone());
                 }
         );
-//delete
-//        System.out.println("--------------------loadedSavedClient---------------------------");
-//        System.out.println(loadedSavedClient.get().getId());
-//        System.out.println(savedClient.getId());
-//        System.out.println(loadedSavedClient.get().getName());
-//        System.out.println(savedClient.getName());
-//        System.out.println(loadedSavedClient.get().getAddress().getStreet());
-//        System.out.println(savedClient.getAddress().getStreet());
-//        System.out.println("PhonesLoaded:");
-//        loadedSavedClient.get().getPhones().forEach(phone -> System.out.println(phone.getNumber()));
-//
-//        System.out.println("Phones:");
-//        savedClient.getPhones().forEach(phone -> System.out.println(phone.getNumber()));
 
         //then
         assertThat(loadedSavedClient).isPresent().get()

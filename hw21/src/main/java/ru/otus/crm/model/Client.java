@@ -1,27 +1,13 @@
 package ru.otus.crm.model;
 
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import org.hibernate.annotations.*;
-import ru.otus.crm.model.Phone;
-
-
 import javax.persistence.*;
-
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import java.util.ArrayList;
 import java.util.List;
 
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
-@Entity
-@Table(name = "client")
+
+@Entity(name = "Client")
+@Table(name = "Client")
 public class Client implements Cloneable {
 
     @Id
@@ -37,10 +23,16 @@ public class Client implements Cloneable {
     private Address address;
 
 
+    @OneToMany(
+            fetch = FetchType.EAGER,
+            mappedBy = "client",
+            cascade = CascadeType.ALL
 
-    @OneToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
-    @JoinColumn(name = "client_id")
-    private List<Phone> phones;
+    )
+    private List<Phone> phones = new ArrayList<>();
+
+    public Client() {
+    }
 
     public Client(String name) {
         this.id = null;
@@ -52,11 +44,79 @@ public class Client implements Cloneable {
         this.name = name;
     }
 
+    public Client(Long id, String name, Address address, List<Phone> phones) {
+
+        this.id = id;
+        this.name = name;
+        this.address = address;
+        for (Phone ph : phones) {
+            //ph.setClient(this);
+            this.phones.add(new Phone(ph.getId(), ph.getNumber(), returnThis()));
+        }
+
+    }
+
+    public Client returnThis() {
+        return this;
+    }
 
     @Override
     public Client clone() {
-        return new Client(this.id, this.name, this.address, this.phones);
+        Client client = new Client();
+        client.setId(this.id);
+        client.setName(this.name);
+        client.setAddress(new Address(this.address.getId(), this.address.getStreet()));
+        List<Phone> newListOfPhones = new ArrayList<Phone>();
+        this.phones.stream().forEach(v -> {
+            v.setClient(client);
+            newListOfPhones.add(v);
+        });
+        client.setPhones(newListOfPhones);
+        return client;
     }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
+    }
+
+    public List<Phone> getPhones() {
+        return phones;
+    }
+
+    public void setPhones(List<Phone> phones) {
+        this.phones = phones;
+    }
+
+    public void addPhone(Phone phone) {
+        phones.add(phone);
+        phone.setClient(this);
+    }
+
+    public void removePhone(Phone phone) {
+        phones.remove(phone);
+        phone.setClient(null);
+    }
+
 
     @Override
     public String toString() {
@@ -64,8 +124,20 @@ public class Client implements Cloneable {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", address=" + address +
-                ", phones=" + phones +
+
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Client)) return false;
+        return id != null && id.equals(((Client) o).getId());
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
     }
 
 

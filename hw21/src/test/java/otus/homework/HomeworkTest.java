@@ -19,7 +19,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatCode;
 
 
-
 import java.lang.reflect.Field;
 import java.util.Collection;
 import java.util.List;
