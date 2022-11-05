@@ -19,7 +19,6 @@ public class DbServiceDemo {
     public static final String HIBERNATE_CFG_FILE = "hibernate.cfg.xml";
 
     public static void main(String[] args) {
-        //todo протестировать orphan removal
         var configuration = new Configuration().configure(HIBERNATE_CFG_FILE);
 
         var dbUrl = configuration.getProperty("hibernate.connection.url");

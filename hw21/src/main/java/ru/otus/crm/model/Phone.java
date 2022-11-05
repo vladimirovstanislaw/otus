@@ -67,7 +67,7 @@ public class Phone {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Phone phone = (Phone) o;
-        return id.equals(phone.id) && Objects.equals(number, phone.number) && Objects.equals(client, phone.client);
+        return id.equals(phone.id);
     }
 
     @Override
