@@ -1,0 +1,19 @@
+plugins {
+    id 'java'
+}
+
+group 'ru.otus'
+version 'unspecified'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation("ch.qos.logback:logback-classic")
+    implementation("org.ehcache:ehcache")
+}
+
+test {
+    useJUnitPlatform()
+}

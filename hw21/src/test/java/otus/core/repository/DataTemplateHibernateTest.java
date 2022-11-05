@@ -4,10 +4,13 @@ import junit.framework.AssertionFailedError;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import otus.base.AbstractHibernateTest;
+import ru.otus.crm.model.Address;
 import ru.otus.crm.model.Client;
+import ru.otus.crm.model.Phone;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -17,14 +20,14 @@ class DataTemplateHibernateTest extends AbstractHibernateTest {
     @DisplayName(" корректно сохраняет, изменяет и загружает клиента по заданному id")
     void shouldSaveAndFindCorrectClientById() {
         //given
+        /*
         var client = new Client("Вася");
-
+*/
         // Это надо раскомментировать, у выполненного ДЗ, все тесты должны проходить
         // Кроме удаления комментирования, тестовый класс менять нельзя
-/*
         var client = new Client(null, "Vasya", new Address(null, "AnyStreet"), List.of(new Phone(null, "13-555-22"),
                 new Phone(null, "14-666-333")));
-*/
+
 
         //when
         var savedClient = transactionManager.doInTransaction(session -> {
@@ -45,9 +48,9 @@ class DataTemplateHibernateTest extends AbstractHibernateTest {
         );
 
         //then
-// todo        assertThat(loadedSavedClient).isPresent().get()
-//                .usingRecursiveComparison()
-//                .isEqualTo(savedClient);
+        assertThat(loadedSavedClient).isPresent().get()
+                .usingRecursiveComparison()
+                .isEqualTo(savedClient);
 
         //when
         var updatedClient = savedClient.clone();
@@ -65,7 +68,7 @@ class DataTemplateHibernateTest extends AbstractHibernateTest {
                     return Optional.of(res.clone());
                 }
         );
-        // todo        assertThat(loadedClient).isPresent().get().usingRecursiveComparison().isEqualTo(updatedClient);
+        assertThat(loadedClient).isPresent().get().usingRecursiveComparison().isEqualTo(updatedClient);
 
         //when
         var clientList = transactionManager.doInReadOnlyTransaction(session ->
