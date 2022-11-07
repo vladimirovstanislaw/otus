@@ -17,7 +17,7 @@ public class MyCache<K, V> implements HwCache<K, V> {
     public void put(K key, V value) {
 
         for (HwListener<K, V> listener : listeners) {
-            listener.notify(key, value, "action");
+            listener.notify(key, value, "action");//
         }
         cache.put(key, value);
     }
