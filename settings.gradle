@@ -23,4 +23,5 @@ include 'L20-Hibernate'
 include 'hw21-JPQL'
 include 'hw21'
 include 'hw23'
+include 'hw23-cache'
 
