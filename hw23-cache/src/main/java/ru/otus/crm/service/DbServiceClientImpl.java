@@ -41,13 +41,17 @@ public class DbServiceClientImpl implements DBServiceClient {
             log.info("updated client: {}", clientCloned);
             return clientCloned;
         });
-        cache.put(String.valueOf(savedClient.getId()), savedClient);
+        cache.put(makeKey(savedClient.getId()), savedClient);
         return savedClient;
+    }
+
+    public String makeKey(Long clientId) {
+        return String.valueOf(clientId);
     }
 
     @Override
     public Optional<Client> getClient(long id) {
-        var client = cache.get(String.valueOf(id));
+        var client = cache.get(makeKey(id));
         if (client != null) {
 
             return Optional.of(client);
