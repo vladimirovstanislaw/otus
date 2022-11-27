@@ -5,4 +5,5 @@ public interface Versions {
     String jmh = "1.35";
     String asm = "9.2";
     String jet = "23.0.0";
+    String reflections = "0.10.2";
 }
