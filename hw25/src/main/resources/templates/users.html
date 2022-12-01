@@ -1,0 +1,110 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Пользователи</title>
+    <script
+            src="https://code.jquery.com/jquery-3.6.1.min.js"
+            integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ="
+            crossorigin="anonymous"></script>
+</head>
+
+<body>
+<div class="formInputClient">
+    <h4>Сохранить нового клиента</h4>
+    <form method="post" action="/api/user/insertClient" id="insertionForm">
+        <label>
+            name <br/>
+            <input type="text" name="name" value="name8">
+        </label>
+        <label>
+            <br/> login <br/>
+            <input type="text" name="login" value="login8">
+        </label>
+        <br/>
+        <label>
+            password<br/>
+            <input type="text" name="password" value="1">
+        </label>
+        <br/><br/>
+
+        <input type="submit" value="Сохранить">
+    </form>
+</div>
+
+
+<button onclick="getAllClients()">Получить всех клиентов</button>
+<table id="allClients">
+    <thead>
+    <tr>
+        <td style="width: 50px">Id</td>
+        <td style="width: 150px">Имя</td>
+        <td style="width: 100px">Логин</td>
+        <td style="width: 100px">Пароль</td>
+    </tr>
+    </thead>
+    <tbody id="clientsData">
+
+
+    </tbody>
+</table>
+</body>
+<script>
+function getUserById() {
+    const userIdTextBox = document.getElementById('userIdTextBox');
+    const userDataContainer = document.getElementById('userDataContainer');
+    const id = userIdTextBox.value;
+    //fetch('api/user?id=' + id)
+    fetch('api/user/' + id)
+        .then(response => response.json())
+        .then(user => userDataContainer.innerHTML = JSON.stringify(user));
+}
+
+function getAllClients() {
+    const tableId = document.getElementById('clientsData');
+    tableId.innerHTML = "";
+
+    fetch('api/user/all').then(function (response) {
+        return response.json();
+    }).then(function (data) {
+        let tableData = '';
+        for (let i = 0; i < data.length; i++) {
+            let id = data[i].id;
+            let name = data[i].name;
+            let login = data[i].login;
+            let password = data[i].password;
+            tableData +=
+                `<tr><td><span>` + id + `</span></td>
+                 <td><span>` + name + `</span></td>
+                 <td><span>` + login + `</span></td>
+                 <td><span>` + password + `</span></td></tr>`;
+
+        }
+
+        tableId.innerHTML = tableData;
+    }).catch(function () {
+        console.log("SpookyBooo");
+    });
+}
+
+
+$("#insertionForm").submit(function(e) {
+
+    e.preventDefault(); // avoid to execute the actual submit of the form.
+
+    var form = $(this);
+    var actionUrl = form.attr('action');
+
+    $.ajax({
+        type: "POST",
+        url: actionUrl,
+        data: form.serialize(), // serializes the form's elements.
+        success: function(data)
+        {
+          console.log(data); // show response from the php script.
+        }
+    });
+
+});
+
+</script>
+
+</html>
