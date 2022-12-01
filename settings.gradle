@@ -25,4 +25,4 @@ include 'hw21'
 include 'hw23'
 include 'hw23-cache'
 include 'hw25'
-
+include 'hw26'
