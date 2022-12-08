@@ -1,0 +1,104 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Пользователи</title>
+    <script
+            src="https://code.jquery.com/jquery-3.6.1.min.js"
+            integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ="
+            crossorigin="anonymous"></script>
+    <script src="/script.js.js"></script>
+</head>
+
+<body>
+<div class="formInputClient">
+    <h4>Сохранить нового клиента</h4>
+    <label>
+        name <br/>
+        <input type="text" name="name" id="name" value="name8">
+    </label>
+    <label>
+        <br/> login <br/>
+        <input type="text" name="login" id="login" value="login8">
+    </label>
+    <br/>
+    <label>
+        password<br/>
+        <input type="text" name="password" id="password" value="1">
+    </label>
+    <br/><br/>
+    <button style="margin-bottom: 50px;" onclick="sendJSON()">Сохранить</button>
+</div>
+
+
+<button onclick="getAllClients()">Получить всех клиентов</button>
+<table id="allClients">
+    <thead>
+    <tr>
+        <td style="width: 50px">Id</td>
+        <td style="width: 150px">Имя</td>
+        <td style="width: 100px">Логин</td>
+        <td style="width: 100px">Пароль</td>
+    </tr>
+    </thead>
+    <tbody id="clientsData">
+
+
+    </tbody>
+</table>
+</body>
+<script>
+function getAllClients() {
+    const tableId = document.getElementById('clientsData');
+    tableId.innerHTML = "";
+
+    fetch('api/clients/all').then(function (response) {
+        return response.json();
+    }).then(function (data) {
+        let tableData = '';
+        for (let i = 0; i < data.length; i++) {
+            let id = data[i].id;
+            let name = data[i].name;
+            let login = data[i].login;
+            let password = data[i].password;
+            tableData +=
+                `<tr><td><span>` + id + `</span></td>
+                 <td><span>` + name + `</span></td>
+                 <td><span>` + login + `</span></td>
+                 <td><span>` + password + `</span></td></tr>`;
+
+        }
+
+        tableId.innerHTML = tableData;
+    }).catch(function () {
+        console.log("SpookyBooo");
+    });
+}
+
+
+
+function sendJSON() {
+    let name = document.querySelector('#name');
+    let login = document.querySelector('#login');
+    let password = document.querySelector('#password');
+
+    let xhr = new XMLHttpRequest();
+    let url = "/api/client";
+    xhr.open("POST", url, true);
+    xhr.setRequestHeader("Content-Type", "application/json");
+
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+        }
+    };
+
+    var data = JSON.stringify({
+        "name": name.value,
+        "login": login.value,
+        "password": password.value
+    });
+    xhr.send(data);
+}
+
+
+</script>
+
+</html>

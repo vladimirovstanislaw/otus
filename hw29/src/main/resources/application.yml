@@ -1,0 +1,20 @@
+server:
+  port: 8080
+
+spring:
+  jpa:
+    database: POSTGRESQL
+    show-sql: true
+    hibernate:
+    ddl-auto: create-drop
+  datasource:
+    platform: postgres
+    url: jdbc:postgresql://localhost:5430/demoDB
+    username: usr
+    password: pwd
+    driverClassName: org.postgresql.Driver
+  flyway:
+    password: pwd
+    user: usr
+    url: jdbc:postgresql://localhost:5430/demoDB
+    locations: classpath:/migration
