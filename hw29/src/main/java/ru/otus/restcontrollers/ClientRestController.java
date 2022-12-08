@@ -13,7 +13,11 @@ import java.util.List;
 @RestController
 public class ClientRestController {
     @Autowired
-    ClientService service;
+    private final ClientService service;
+
+    public ClientRestController(ClientService service) {
+        this.service = service;
+    }
 
     @GetMapping(value = "/api/clients/all")
     public List<Client> getAllApiUsers() {
