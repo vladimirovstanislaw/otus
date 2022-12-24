@@ -23,6 +23,7 @@ public class ClientServiceImpl implements ClientService {
     @Override
     public Client saveClient(Client client) {
         var savedClient = clientRepository.save(client);
+
         log.info("saved client: {}", savedClient);
         return savedClient;
     }
