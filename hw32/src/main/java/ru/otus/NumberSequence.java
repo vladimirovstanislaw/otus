@@ -1,12 +1,12 @@
-package ru.otus.monitor;
+package ru.otus;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class PingPong2 {
-    private static final Logger logger = LoggerFactory.getLogger(PingPong2.class);
+public class NumberSequence {
+    private static final Logger logger = LoggerFactory.getLogger(NumberSequence.class);
 
     private static String threadName1 = "Thread 1";
     private static String threadName2 = "Thread 2";
@@ -14,15 +14,14 @@ public class PingPong2 {
 
     private AtomicInteger currentValue = new AtomicInteger(1);
     private boolean wasCurrentValueShowedByFirstThread = false;
-    private int firstNumber = 1;
-    private int lastNumber = 10;
+    private final int firstNumber = 1;
+    private final int lastNumber = 10;
     private boolean isFirstThreadStarted = false;
 
     private synchronized void action(String threadName) {
         while (!Thread.currentThread().isInterrupted()) {
             try {
-                //spurious wakeup https://en.wikipedia.org/wiki/Spurious_wakeup
-                //поэтому не if
+
                 while (threadName.equals(threadName2) && isFirstThreadStarted == false) {
                     this.wait();
                 }
@@ -45,17 +44,12 @@ public class PingPong2 {
                     logger.info("{}: {}", threadName, currentValue);
                     break;
                 }
-                while (threadName.equals(threadName2) && currentValue.get() < 10) {
+                while (threadName.equals(threadName2)) {
                     logger.info("{}: {}", threadName, currentValue);
                     currentValue.addAndGet(modificator.get());
                     break;
                 }
-                while (threadName.equals(threadName2) && currentValue.get() == 10) {
-                    logger.info("{}: {}", threadName, currentValue);
-                    modificator.getAndAdd(-2);
-                    currentValue.addAndGet(modificator.get());
-                    break;
-                }
+
                 while (threadName.equals(threadName1)) {
                     wasCurrentValueShowedByFirstThread = true;
                     break;
@@ -64,9 +58,18 @@ public class PingPong2 {
                     wasCurrentValueShowedByFirstThread = false;
                     break;
                 }
+                while (threadName.equals(threadName2) && currentValue.get() == lastNumber) {
+                    modificator.getAndAdd(-2);
+                    break;
+                }
+                while (threadName.equals(threadName2) && currentValue.get() == firstNumber && isFirstThreadStarted == true) {
+                    modificator.getAndAdd(2);
+                    break;
+                }
+
                 sleep();
                 notifyAll();
-                logger.info("after notify");
+
             } catch (Exception ex) {
                 Thread.currentThread().interrupt();
             }
@@ -74,7 +77,7 @@ public class PingPong2 {
     }
 
     public static void main(String[] args) {
-        PingPong2 pingPong = new PingPong2();
+        NumberSequence pingPong = new NumberSequence();
         new Thread(() -> pingPong.action(threadName1)).start();
         new Thread(() -> pingPong.action(threadName2)).start();
 
