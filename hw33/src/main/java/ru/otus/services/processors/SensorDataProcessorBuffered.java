@@ -10,12 +10,13 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Queue;
+import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.PriorityBlockingQueue;
 
 
 public class SensorDataProcessorBuffered implements SensorDataProcessor {
     private static final Logger log = LoggerFactory.getLogger(SensorDataProcessorBuffered.class);
-    private final Queue<SensorData> sensorDataQueue;
+    private final BlockingQueue<SensorData> sensorDataQueue;
     private final int bufferSize;
     private final SensorDataBufferedWriter writer;
 
@@ -26,7 +27,7 @@ public class SensorDataProcessorBuffered implements SensorDataProcessor {
     }
 
     @Override
-    public synchronized void process(SensorData data) {
+    public void process(SensorData data) {
         if (sensorDataQueue.size() >= bufferSize) {
             flush();
             sensorDataQueue.offer(data);
@@ -35,19 +36,16 @@ public class SensorDataProcessorBuffered implements SensorDataProcessor {
         }
     }
 
-    public synchronized void flush() {
+    public void flush() {
         try {
             if (sensorDataQueue.size() == 0) {
 
             } else {
                 List<SensorData> sensorDataList = new ArrayList<>();
-                int sensorDataQueueSize = sensorDataQueue.size();
-                for (int i = 0; i < sensorDataQueueSize; i++) {
-                    sensorDataList.add(sensorDataQueue.poll());
-                }
+                sensorDataQueue.drainTo(sensorDataList);
                 writer.writeBufferedData(sensorDataList);
 
-                sensorDataQueue.clear();
+                //sensorDataQueue.clear();
             }
         } catch (Exception e) {
             log.error("Ошибка в процессе записи буфера", e);
