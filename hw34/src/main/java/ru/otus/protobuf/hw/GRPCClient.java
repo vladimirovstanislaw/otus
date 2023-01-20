@@ -18,7 +18,7 @@ public class GRPCClient {
                 .build();
 
         AtomicInteger lastNumberFromServer = new AtomicInteger(0);
-        AtomicInteger currentValue = new AtomicInteger(0);
+        long currentValue = 0l;
         var latch = new CountDownLatch(1);
 
         var nonBlockingStub = RemoteNumberSequenceServiceGrpc.newStub(channel);
@@ -43,9 +43,9 @@ public class GRPCClient {
         });
 
         for (int i = 0; i < 50; i++) {
-            currentValue.set(currentValue.get() + lastNumberFromServer.get() + 1);
+            currentValue = currentValue + lastNumberFromServer.getAndSet(0) + 1;
             System.out.printf("{currentValue: %d}%n",
-                    currentValue.get());
+                    currentValue);
             lastNumberFromServer.set(0);
             Thread.sleep(1000);
         }
