@@ -33,3 +33,6 @@ include 'hw34'
 include 'L35-RabbitMQ:allServicesModels'
 include 'L35-RabbitMQ:approvalService'
 include 'L35-RabbitMQ:mainService'
+include 'hw38-webflux:client-service'
+include 'hw38-webflux:datastore-service'
+
